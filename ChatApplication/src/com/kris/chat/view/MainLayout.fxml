@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kris.chat.view.MainLayoutController">
+   <children>
+      <SplitPane dividerPositions="0.7755102040816326" layoutX="5.0" layoutY="50.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <TextArea fx:id="outputField" editable="false" layoutX="127.0" layoutY="43.0" prefHeight="298.0" prefWidth="453.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <Accordion fx:id="menu" layoutX="-13.0" layoutY="100.0" prefHeight="298.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <panes>
+                      <TitledPane fx:id="roomsPane" animated="false" text="Rooms">
+                           <content>
+                              <ListView fx:id="chatRoomList" onMouseClicked="#handleRoomSelect" prefHeight="200.0" prefWidth="200.0" />
+                           </content></TitledPane>
+                      <TitledPane fx:id="usersPane" animated="false" text="Users">
+                           <content>
+                              <ListView fx:id="usersList" prefHeight="200.0" prefWidth="200.0" />
+                           </content></TitledPane>
+                    </panes>
+                  </Accordion>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+      <Button layoutX="536.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleLogOut" text="Log Out" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0" />
+      <TextField fx:id="inputField" layoutX="5.0" layoutY="356.0" onKeyPressed="#sendTextOnEnterPressed" prefHeight="37.0" prefWidth="453.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="142.0" />
+      <Button layoutX="463.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleSendButton" prefHeight="25.0" prefWidth="132.0" text="Send" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="5.0" />
+      <ChoiceBox layoutX="14.0" layoutY="15.0" prefHeight="25.0" prefWidth="129.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="15.0" />
+      <Button layoutX="443.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleCreateButton" text="Create Room" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="15.0" />
+      <Label fx:id="roomName" layoutX="198.0" layoutY="15.0" prefHeight="25.0" prefWidth="202.0" text="Join or create a chatroom!" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

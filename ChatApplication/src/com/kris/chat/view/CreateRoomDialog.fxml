@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="162.0" prefWidth="231.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kris.chat.view.CreateRoomDialogController">
+   <children>
+      <TextField fx:id="chatroomName" layoutX="41.0" layoutY="62.0" nodeOrientation="LEFT_TO_RIGHT" />
+      <Label layoutX="77.0" layoutY="30.0" text="Room Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="41.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="25.0" prefWidth="67.0" text="Create" />
+      <Button layoutX="123.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="67.0" text="Cancel" />
+   </children>
+</AnchorPane>

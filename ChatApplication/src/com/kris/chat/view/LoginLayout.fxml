@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="240.0" minWidth="335.0" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#onEnterPressed" prefHeight="240.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kris.chat.view.LoginLoayoutController">
+   <children>
+      <TextField fx:id="usernameField" layoutX="93.0" layoutY="69.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="150.0" promptText="Username" />
+      <PasswordField fx:id="passwordField" layoutX="93.0" layoutY="107.0" maxHeight="25.0" maxWidth="150.0" minHeight="25.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0" promptText="Password" />
+      <Label alignment="BASELINE_CENTER" layoutX="91.0" layoutY="14.0" maxHeight="67.0" maxWidth="210.0" minHeight="48.0" minWidth="157.0" prefHeight="48.0" prefWidth="157.0" text="Welcome" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="120.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="25.0" prefWidth="97.0" text="Login" />
+      <Button layoutX="93.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleRegister" prefHeight="25.0" prefWidth="66.0" text="Register" />
+      <Button layoutX="177.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="25.0" prefWidth="66.0" text="Exit" />
+      <Label fx:id="errorLable" alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="218.0" prefHeight="17.0" prefWidth="201.0" textAlignment="CENTER" textFill="RED" />
+   </children>
+</AnchorPane>
