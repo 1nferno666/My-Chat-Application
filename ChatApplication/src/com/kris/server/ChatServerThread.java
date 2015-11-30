@@ -46,13 +46,6 @@ public class ChatServerThread implements Runnable {
 					String outputMessage = MessageSerialization.createMessage(LOG_IN, isValidUser.toString());
 					output.println(outputMessage);
 					output.flush();
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					chatService.updateChatrooms();
 					break;
 				case NEW_USER:
 					// TODO
@@ -85,6 +78,11 @@ public class ChatServerThread implements Runnable {
 				case USERS_LIST:
 					chatroomName = tokens.get(1);
 					chatService.updateUsers(chatroomName);
+					break;
+					
+				case GET_INFO:
+					chatService.updateChatrooms();
+					break;
 				}
 			}
 

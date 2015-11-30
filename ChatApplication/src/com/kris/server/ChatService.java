@@ -28,7 +28,33 @@ public class ChatService {
 		userToChatroomNameMap = new ConcurrentHashMap<>();
 		allSockets = new HashSet<>();
 	}
+	
+	private User stringToUser(String senderUsername) {
+		for (User user : usersList) {
+			if (user.getUsername().equals(senderUsername)) {
+				return user;
+			}
+		}
+		return null;
+	}
 
+	private Chatroom stringToChatroom(String chatroomName) {
+		for (Chatroom chatroom : chatroomsList) {
+			if (chatroom.getName().equals(chatroomName)) {
+				return chatroom;
+			}
+		}
+		return null;
+	}
+	
+	private void removeUserFromChatroom(String username) {
+		for (Chatroom room : chatroomsList) {
+			if (room.equals(stringToChatroom(userToChatroomNameMap.get(username)))) {
+				stringToChatroom(userToChatroomNameMap.get(username)).getSocketToUserMap().remove(username);
+			}
+		}
+	}
+	
 	synchronized public boolean authenticate(Socket sender, String username, String password) {
 		User newUser = new User(username, password);
 		for (User user : usersList) {
@@ -42,8 +68,8 @@ public class ChatService {
 	}
 
 	synchronized public void sendMessage(String senderUsername, String message) {
-		if (getChatroomFromMap(userToChatroomNameMap.get(getUserFromList(senderUsername))) != null) {
-			Chatroom tempChatoom = getChatroomFromMap(userToChatroomNameMap.get(getUserFromList(senderUsername)));
+		if (stringToChatroom(userToChatroomNameMap.get(stringToUser(senderUsername))) != null) {
+			Chatroom tempChatoom = stringToChatroom(userToChatroomNameMap.get(stringToUser(senderUsername)));
 			
 			for (Map.Entry<User, Socket> entry : tempChatoom.getSocketToUserMap().entrySet()) {
 				if (!entry.getKey().getUsername().equals(senderUsername)) {
@@ -62,6 +88,7 @@ public class ChatService {
 	}
 
 	synchronized public void createRoom(Socket sender, String senderUsername, String chatroomName) throws NullPointerException {
+		removeUserFromChatroom(senderUsername);
 		Chatroom newChatRoom = new Chatroom(chatroomName);
 		
 		for (Chatroom chatroom: chatroomsList) {
@@ -69,39 +96,22 @@ public class ChatService {
 				return;
 			}
 		}
-		newChatRoom.getSocketToUserMap().put(getUserFromList(senderUsername), sender);
-		userToChatroomNameMap.put(getUserFromList(senderUsername), chatroomName);
+		newChatRoom.getSocketToUserMap().put(stringToUser(senderUsername), sender);
+		userToChatroomNameMap.put(stringToUser(senderUsername), chatroomName);
 		chatroomsList.add(newChatRoom);
 		updateChatrooms();
 	}
 
 	synchronized public void joinRoom(Socket sender, String senderUsername, String chatroomName) throws NullPointerException {
+		removeUserFromChatroom(senderUsername);
 		for (int i = 0; i < chatroomsList.size(); i++) {
 			if (chatroomsList.get(i).getName().equals(chatroomName)) {
-				chatroomsList.get(i).getSocketToUserMap().put(getUserFromList(senderUsername), sender);
+				chatroomsList.get(i).getSocketToUserMap().put(stringToUser(senderUsername), sender);
 			}
 		}
-		userToChatroomNameMap.put(getUserFromList(senderUsername), getChatroomFromMap(chatroomName).getName());
+		userToChatroomNameMap.put(stringToUser(senderUsername), stringToChatroom(chatroomName).getName());
 	}
 
-	private User getUserFromList(String senderUsername) {
-		for (User user : usersList) {
-			if (user.getUsername().equals(senderUsername)) {
-				return user;
-			}
-		}
-		return null;
-	}
-
-	private Chatroom getChatroomFromMap(String chatroomName) {
-		for (Chatroom chatroom : chatroomsList) {
-			if (chatroom.getName().equals(chatroomName)) {
-				return chatroom;
-			}
-		}
-		return null;
-	}
-	
 	public void updateChatrooms() {
 		String outputMessage = MessageSerialization.createMessage(ClientServerMessages.CHATROOMS_LIST);
 		for (Chatroom chatroom: chatroomsList) {
@@ -119,7 +129,8 @@ public class ChatService {
 	}
 	
 	synchronized public void removeUser(Socket sender, String senderUsername) {
-		userToChatroomNameMap.remove(getUserFromList(senderUsername));
+		removeUserFromChatroom(senderUsername);
+		userToChatroomNameMap.remove(stringToUser(senderUsername));
 		Iterator<User> itr = usersList.iterator();
 		while (itr.hasNext()) {
 			String check = itr.next().getUsername();
@@ -131,7 +142,7 @@ public class ChatService {
 		System.out.println(senderUsername + " left!");
 		allSockets.remove(sender);
 	}
-
+	
 	synchronized public void updateUsers(String chatroomName) {
 		String outputMessage = MessageSerialization.createMessage(ClientServerMessages.USERS_LIST);
 		for (Chatroom chatroom : chatroomsList) {

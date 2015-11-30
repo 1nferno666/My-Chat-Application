@@ -10,4 +10,5 @@ public class ClientServerMessages {
 	public static final String CHATROOMS_LIST = "chatrooms_list";
 	public static final String USERS_LIST = "users_list";
 	public static final String REMOVE_USER = "remove_user";
+	public static final String GET_INFO = "get_info";
 }

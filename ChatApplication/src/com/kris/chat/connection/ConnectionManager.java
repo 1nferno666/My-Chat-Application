@@ -63,11 +63,15 @@ public class ConnectionManager {
 		sendMessage(MessageSerialization.createMessage(REMOVE_USER, senderUsername));
 	}
 	
+	public void requestInformation() {
+		sendMessage(MessageSerialization.createMessage(GET_INFO));
+	}
+	
 	private void sendMessage(String message) {
 		printWriter.println(message);
 		printWriter.flush();
 	}
-
+	
 	synchronized public void establishConnection() throws IOException, UnknownHostException{
 		socket = new Socket("localhost", 1192);
 		inboundChannel = new BufferedReader(new InputStreamReader(socket.getInputStream()));

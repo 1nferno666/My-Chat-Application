@@ -52,6 +52,7 @@ public class PresentationController {
 		    primaryStage.hide();
 			primaryStage.setScene(mainScene);
 			primaryStage.show();
+			connectionManager.requestInformation();
 		} catch (IOException e) {
 			System.err.println("Failed to load FXML file!");
 			e.printStackTrace();
