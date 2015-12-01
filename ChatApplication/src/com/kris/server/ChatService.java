@@ -3,7 +3,9 @@ package com.kris.server;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +23,7 @@ public class ChatService {
 	private List<User> usersList;
 	private List<Chatroom> chatroomsList;
 	private Set<Socket> allSockets;
-
+	
 	public ChatService() {
 		usersList = new ArrayList<>();
 		chatroomsList = new ArrayList<>();
@@ -139,7 +141,7 @@ public class ChatService {
 				break;
 			}
 		}
-		System.out.println(senderUsername + " left!");
+		ConsoleMessage.print(senderUsername + " left!");
 		allSockets.remove(sender);
 	}
 	
@@ -156,7 +158,7 @@ public class ChatService {
 					PrintWriter bufferedWriter;
 					try {
 						bufferedWriter = new PrintWriter(entry.getValue().getOutputStream());
-						System.out.println("updateUsers" + outputMessage);
+						ConsoleMessage.print("updateUsers" + outputMessage);
 						bufferedWriter.println(outputMessage);
 						bufferedWriter.flush();
 					} catch (IOException e) {

@@ -35,7 +35,7 @@ public class ChatServerThread implements Runnable {
 					break;
 				}
 				String message = input.nextLine();
-				System.out.println("Server message: " + message);
+				ConsoleMessage.print("Server message: " + message);
 				List<String> tokens = MessageSerialization.splitMessage(message);
 				String command = tokens.get(0);
 				switch (command) {

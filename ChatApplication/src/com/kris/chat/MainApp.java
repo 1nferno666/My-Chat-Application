@@ -36,20 +36,16 @@ public class MainApp extends Application {
 
                     @Override
                     public void run() {
-                    	if (model != null) {
-                    		connectionManager.handleExit(model.getClientUser().getUsername());
-						}
-                        System.out.println("Application Closed by click to Close Button(X)");
-                        System.exit(0);
                         try {
-							connectionManager.getSocket().close();
-							if (model != null) {
-								connectionManager.handleExit(model.getClientUser().getUsername());
+                        	if (connectionManager.getSocket() != null) {
+    	                    		connectionManager.handleExit(model.getClientUser().getUsername());
+    	                    		connectionManager.getSocket().close();
 							}
 						} catch (IOException e) {
 							System.err.println("Cannot close socket!");
 							e.printStackTrace();
 						}
+                        System.exit(0);
                     }
                 });
             }

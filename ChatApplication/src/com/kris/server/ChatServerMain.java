@@ -12,12 +12,10 @@ public class ChatServerMain {
 		ChatService chatService = new ChatService();
 
 		try (ServerSocket serverSocket = new ServerSocket(PORT)){
-			System.out.println("Waiting for clients...");
-
+			ConsoleMessage.print("Waiting for clients...");
 			while (true) {
 				Socket newClientScocket = serverSocket.accept();
-				System.out.println("Client connected from: " + newClientScocket.getLocalAddress().getHostName());
-
+				ConsoleMessage.print("Client connected from: " + newClientScocket.getLocalAddress().getHostName());
 				ChatServerThread chatServerThead = new ChatServerThread(newClientScocket, chatService);
 				Thread startThread = new Thread(chatServerThead);
 				startThread.start();
