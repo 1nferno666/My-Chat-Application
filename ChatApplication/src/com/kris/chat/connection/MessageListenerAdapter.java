@@ -5,6 +5,7 @@ import static com.kris.chat.messages.ClientServerMessages.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kris.chat.interfaces.MessageListener;
 
 import javafx.application.Platform;
 

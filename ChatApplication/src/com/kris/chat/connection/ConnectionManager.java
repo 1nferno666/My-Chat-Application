@@ -9,6 +9,8 @@ import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.kris.chat.interfaces.MessageListener;
+
 import static com.kris.chat.messages.ClientServerMessages.*;
 
 public class ConnectionManager {

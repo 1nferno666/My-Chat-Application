@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 
 import com.kris.chat.MainApp;
 import com.kris.chat.connection.ConnectionManager;
-import com.kris.chat.connection.MessageListener;
 import com.kris.chat.connection.MessageListenerAdapter;
+import com.kris.chat.interfaces.MessageListener;
 import com.kris.chat.model.ChatClientModel;
 import com.kris.chat.model.User;
 

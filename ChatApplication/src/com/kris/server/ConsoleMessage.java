@@ -8,7 +8,7 @@ public class ConsoleMessage {
 	public static void print(String message) {
 		
 		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd.MM.yyyy");
 		System.out.println(sdf.format(calendar.getTime()) + ": " + message);
 	}
 	

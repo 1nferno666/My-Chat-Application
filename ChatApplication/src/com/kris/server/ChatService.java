@@ -50,11 +50,7 @@ public class ChatService {
 	}
 	
 	private void removeUserFromChatroom(String username) {
-		for (Chatroom room : chatroomsList) {
-			if (room.equals(stringToChatroom(userToChatroomNameMap.get(username)))) {
-				stringToChatroom(userToChatroomNameMap.get(username)).getSocketToUserMap().remove(username);
-			}
-		}
+		stringToChatroom(userToChatroomNameMap.get(stringToUser(username))).getSocketToUserMap().remove(stringToUser(username));
 	}
 	
 	synchronized public boolean authenticate(Socket sender, String username, String password) {
@@ -70,20 +66,15 @@ public class ChatService {
 	}
 
 	synchronized public void sendMessage(String senderUsername, String message) {
-		if (stringToChatroom(userToChatroomNameMap.get(stringToUser(senderUsername))) != null) {
-			Chatroom tempChatoom = stringToChatroom(userToChatroomNameMap.get(stringToUser(senderUsername)));
-			
-			for (Map.Entry<User, Socket> entry : tempChatoom.getSocketToUserMap().entrySet()) {
-				if (!entry.getKey().getUsername().equals(senderUsername)) {
-					String outputMessage = MessageSerialization.createMessage(ClientServerMessages.CHAT_MESSAGE,
-							senderUsername, message);
-					try {
-						PrintWriter bufferedWriter = new PrintWriter(entry.getValue().getOutputStream());
-						bufferedWriter.println(outputMessage);
-						bufferedWriter.flush();
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
+		for (Map.Entry<User, Socket> entry : stringToChatroom(userToChatroomNameMap.get(stringToUser(senderUsername))).getSocketToUserMap().entrySet()) {
+			if (!entry.getKey().getUsername().equals(senderUsername)) {
+				String outputMessage = MessageSerialization.createMessage(ClientServerMessages.CHAT_MESSAGE,senderUsername, message);
+				try {
+					PrintWriter bufferedWriter = new PrintWriter(entry.getValue().getOutputStream());
+					bufferedWriter.println(outputMessage);
+					bufferedWriter.flush();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
 				}
 			}
 		}
@@ -98,6 +89,7 @@ public class ChatService {
 				return;
 			}
 		}
+		
 		newChatRoom.getSocketToUserMap().put(stringToUser(senderUsername), sender);
 		userToChatroomNameMap.put(stringToUser(senderUsername), chatroomName);
 		chatroomsList.add(newChatRoom);

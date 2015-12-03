@@ -60,7 +60,7 @@ public class ChatServerThread implements Runnable {
 					break;
 				case CREATE_ROOM:
 					senderUsername = tokens.get(1);
-					System.out.println("Room created by " + senderUsername);
+					ConsoleMessage.print("Room created by " + senderUsername);
 					chatroomName = tokens.get(2);
 					chatService.createRoom(socket, senderUsername, chatroomName);
 					break;

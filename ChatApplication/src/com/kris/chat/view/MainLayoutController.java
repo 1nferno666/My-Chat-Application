@@ -157,7 +157,7 @@ public class MainLayoutController implements Initializable {
 
 	@FXML
 	private void handleRoomSelect() {
-		if (!chatrooms.isEmpty()) {
+		if (!chatrooms.isEmpty() && chatRoomList.getSelectionModel().getSelectedItem().toString() != null) {
 			roomName.setText("Chatroom: " + chatRoomList.getSelectionModel().getSelectedItem().toString());
 			connectionManager.joinRoom(model.getClientUser().getUsername(), chatRoomList.getSelectionModel().getSelectedItem().toString());
 			roomsPane.setExpanded(false);
